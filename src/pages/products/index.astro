@@ -1,0 +1,20 @@
+---
+export const prerender = true;
+
+import ProductsListClient from '@/components/blocks/ProductsListClient';
+import Layout from '@/layouts/BaseLayout.astro';
+import { getAllProducts } from '@/lib/products';
+import type { Product } from '@/lib/products';
+
+// Fetch all products (currently from mock data, can be replaced with Directus fetcher)
+const products: Product[] = getAllProducts();
+
+const metadata = {
+  title: 'Our Products',
+  description: 'Discover our range of high-quality products designed to meet your needs.',
+};
+---
+
+<Layout metadata={metadata}>
+  <ProductsListClient client:load initialProducts={products} />
+</Layout>

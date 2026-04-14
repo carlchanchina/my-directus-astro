@@ -6,6 +6,13 @@ import Layout from '@/layouts/BaseLayout.astro';
 import { getProductBySlug, getAllProducts, relatedProducts } from '@/lib/products';
 import type { Product } from '@/lib/products';
 
+export async function getStaticPaths() {
+  const products = getAllProducts();
+  return products.map(product => ({
+    params: { slug: product.slug },
+  }));
+}
+
 const slugParam = Astro.params.slug;
 const slug = Array.isArray(slugParam) ? slugParam.join('/') : typeof slugParam === 'string' ? slugParam : '';
 

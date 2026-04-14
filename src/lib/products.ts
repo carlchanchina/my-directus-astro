@@ -18,7 +18,7 @@ const allProducts: Product[] = [
     slug: 'premium-wireless-headphones',
     price: 299.99,
     description: 'High-quality wireless headphones with noise cancellation and premium sound quality',
-    image: '/images/product-1.jpg',
+    image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
     category: 'Electronics',
     details: [
       'Active Noise Cancellation',
@@ -34,7 +34,7 @@ const allProducts: Product[] = [
     slug: 'eco-friendly-water-bottle',
     price: 49.99,
     description: 'Sustainable water bottle made from recycled materials with double-wall insulation',
-    image: '/images/product-2.jpg',
+    image: 'https://images.unsplash.com/photo-1602143407151-7e4dc5dc6a13?w=500&h=500&fit=crop',
     category: 'Lifestyle',
     details: [
       'Made from 100% recycled plastic',
@@ -50,7 +50,7 @@ const allProducts: Product[] = [
     slug: 'smart-fitness-tracker',
     price: 199.99,
     description: 'Advanced fitness tracker with heart rate monitoring and sleep tracking',
-    image: '/images/product-3.jpg',
+    image: 'https://images.unsplash.com/photo-1575311373937-040b8e1fd5b6?w=500&h=500&fit=crop',
     category: 'Electronics',
     details: [
       'Heart rate & blood oxygen monitoring',
@@ -66,7 +66,7 @@ const allProducts: Product[] = [
     slug: 'professional-camera-bag',
     price: 149.99,
     description: 'Durable and spacious bag designed for professional photographers',
-    image: '/images/product-4.jpg',
+    image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop',
     category: 'Photography',
     details: [
       'Weatherproof exterior',
@@ -82,7 +82,7 @@ const allProducts: Product[] = [
     slug: 'organic-coffee-beans',
     price: 34.99,
     description: 'Premium organic coffee beans sourced from fair trade farms',
-    image: '/images/product-5.jpg',
+    image: 'https://images.unsplash.com/photo-1447933601403-0c6688120566?w=500&h=500&fit=crop',
     category: 'Food',
     details: [
       '100% Organic certified',
@@ -98,7 +98,7 @@ const allProducts: Product[] = [
     slug: 'minimalist-desk-lamp',
     price: 79.99,
     description: 'Modern LED desk lamp with adjustable brightness and color temperature',
-    image: '/images/product-6.jpg',
+    image: 'https://images.unsplash.com/photo-1565636192335-14c46fa1120d?w=500&h=500&fit=crop',
     category: 'Home',
     details: [
       'LED technology',

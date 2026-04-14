@@ -1,0 +1,22 @@
+---
+import Layout from '@/layouts/BaseLayout.astro';
+import { Container } from '@/components/ui/Container';
+import { Headline } from '@/components/ui/Headline';
+import ProductsList from '@/components/blocks/ProductsList';
+
+export const prerender = true;
+---
+
+<Layout title="Products">
+  <Container>
+    <div class="py-12 sm:py-16 lg:py-20">
+      <div class="text-center mb-12">
+        <Headline level="h1" class="mb-4">Our Products</Headline>
+        <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Discover our range of high-quality products designed to meet your needs.
+        </p>
+      </div>
+      <ProductsList />
+    </div>
+  </Container>
+</Layout>

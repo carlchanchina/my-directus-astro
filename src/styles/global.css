@@ -34,22 +34,7 @@
   button:focus,
   a:focus,
   [role="button"]:focus {
-    @apply outline-none ring-2 ring-[var(--accent-color)] ring-offset-2 ring-offset-background;
-  }
-
-  [data-background="dark"] {
-    @apply bg-gray dark:bg-[var(--background-variant-color)];
-  }
-
-  :root:not(.dark) [data-background="dark"] {
-    .inline-flex[class*="bg-gray"] {
-      @apply bg-[#172940] text-white hover:bg-accent;
-    }
-  }
-}
-
-@layer utilities {
-  a {
-    @apply hover:text-accent transition-colors no-underline;
+    outline: none;
+    box-shadow: 0 0 0 2px var(--accent-color), 0 0 0 4px var(--background-color);
   }
 }

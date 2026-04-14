@@ -1,3 +1,5 @@
+type Language = 'en' | 'zh';
+
 interface ImportMetaEnv {
   readonly PUBLIC_DIRECTUS_URL: string;
   readonly PUBLIC_SITE_URL: string;
@@ -7,4 +9,10 @@ interface ImportMetaEnv {
 
 interface ImportMeta {
   readonly env: ImportMetaEnv;
+}
+
+declare namespace App {
+  interface Locals {
+    locale: Language;
+  }
 }

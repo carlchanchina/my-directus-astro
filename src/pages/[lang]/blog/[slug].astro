@@ -8,6 +8,7 @@ import {
   fetchPostBySlug,
   fetchRelatedPosts,
   getPostIdBySlug,
+  fetchAllPosts,
 } from '@/lib/directus/fetchers';
 import { translations, type Language } from '@/lib/i18n';
 import type { DirectusUser, Post } from '@/types/directus-schema';
@@ -18,7 +19,12 @@ type Params = {
 };
 
 export async function getStaticPaths() {
-  const posts = await fetchAllPostsForI18n();
+  let posts: Post[] = [];
+  try {
+    posts = await fetchAllPosts();
+  } catch (error) {
+    console.error('Error fetching posts for i18n paths:', error);
+  }
 
   const paths = [];
   for (const lang of ['en', 'zh']) {
@@ -32,16 +38,8 @@ export async function getStaticPaths() {
   return paths;
 }
 
-// Helper function - you can modify this based on your Directus schema
-async function fetchAllPostsForI18n() {
-  try {
-    // This assumes you have a way to fetch all posts
-    // Adjust based on your actual implementation
-    return [];
-  } catch {
-    return [];
-  }
-}
+// Helper function - removed as fetchAllPosts is now imported directly
+
 
 const { lang = 'en', slug = '' } = Astro.params;
 const currentLang = lang as Language;

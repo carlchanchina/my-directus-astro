@@ -11,6 +11,7 @@ import Container from '@/components/ui/Container';
 import type { Post, DirectusUser } from '@/types/directus-schema';
 import { setAttr } from '@directus/visual-editing';
 import { useVisualEditing } from '@/hooks/useVisualEditing';
+import { translations, type Language } from '@/lib/i18n';
 
 interface BlogPostClientProps {
   initialPost: Post;
@@ -19,6 +20,7 @@ interface BlogPostClientProps {
   authorName: string;
   postUrl: string;
   slug?: string;
+  lang?: Language;
 }
 
 export default function BlogPostClient({
@@ -28,8 +30,18 @@ export default function BlogPostClient({
   authorName,
   postUrl,
   slug,
+  lang = 'en',
 }: BlogPostClientProps) {
   const { isVisualEditingEnabled, apply } = useVisualEditing();
+
+  const t = (key: string) => {
+    const keys = key.split('.');
+    let value: any = translations[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
 
   const [isPreviewEnabled, setIsPreviewEnabled] = useState(false);
   const [hasVersioningParams, setHasVersioningParams] = useState(false);

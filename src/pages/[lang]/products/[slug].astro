@@ -1,0 +1,79 @@
+---
+import ProductDetailClient from '@/components/layout/ProductDetailClient';
+import Layout from '@/layouts/BaseLayout.astro';
+import { getProductBySlug, getAllProducts, relatedProducts } from '@/lib/products';
+import { translations, type Language } from '@/lib/i18n';
+import type { Product } from '@/lib/products';
+
+type Params = {
+  lang?: string;
+  slug?: string;
+};
+
+export async function getStaticPaths() {
+  const paths = [];
+  const products = getAllProducts();
+
+  // Create paths for each language and product
+  for (const lang of ['en', 'zh']) {
+    for (const product of products) {
+      paths.push({
+        params: { lang, slug: product.slug },
+      });
+    }
+  }
+
+  return paths;
+}
+
+const { lang = 'en', slug = '' } = Astro.params;
+const currentLang = lang as Language;
+
+const t = (key: string) => {
+  const keys = key.split('.');
+  let value: any = translations[currentLang];
+  for (const k of keys) {
+    value = value?.[k];
+  }
+  return value || key;
+};
+
+let product: Product | null = null;
+try {
+  product = getProductBySlug(slug as string) || null;
+} catch (error) {
+  console.error('Error loading product:', error);
+  product = null;
+}
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+const related = relatedProducts(product.slug, 3);
+const siteURL = import.meta.env.PUBLIC_SITE_URL || '';
+const productUrl = `${siteURL}/${lang}/products/${slug}`;
+
+const metadata = {
+  title: product.name,
+  description: product.description,
+  openGraph: {
+    title: product.name,
+    description: product.description,
+    url: productUrl,
+    type: 'product',
+    images: product.image ? [{ url: product.image }] : undefined,
+  },
+};
+---
+
+<Layout metadata={metadata}>
+  <ProductDetailClient
+    client:load
+    initialProduct={product}
+    relatedProducts={related}
+    productUrl={productUrl}
+    slug={slug}
+    lang={currentLang}
+  />
+</Layout>

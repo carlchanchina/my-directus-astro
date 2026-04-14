@@ -4,6 +4,7 @@ import Container from '@/components/ui/Container';
 import Headline from '@/components/ui/Headline';
 import { Button } from '@/components/ui/button';
 import ShareDialog from '@/components/ui/ShareDialog';
+import { translations, type Language } from '@/lib/i18n';
 import type { Product } from '@/lib/products';
 
 interface ProductDetailClientProps {
@@ -11,6 +12,7 @@ interface ProductDetailClientProps {
   relatedProducts: Product[];
   productUrl: string;
   slug?: string;
+  lang?: Language;
 }
 
 export default function ProductDetailClient({
@@ -18,8 +20,18 @@ export default function ProductDetailClient({
   relatedProducts,
   productUrl,
   slug,
+  lang = 'en',
 }: ProductDetailClientProps) {
   const product = initialProduct;
+
+  const t = (key: string) => {
+    const keys = key.split('.');
+    let value: any = translations[lang];
+    for (const k of keys) {
+      value = value?.[k];
+    }
+    return value || key;
+  };
 
   if (!product) return null;
 
@@ -28,8 +40,8 @@ export default function ProductDetailClient({
       <Container className="py-12 sm:py-16 lg:py-20">
         {/* Breadcrumb */}
         <div className="mb-8">
-          <a href="/products" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-            All Products
+          <a href={`/${lang}/products`} className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            {t('products.allProducts')}
           </a>
           <span className="mx-2 text-sm text-muted-foreground">/</span>
           <span className="text-sm font-medium">{product.category}</span>
@@ -72,7 +84,7 @@ export default function ProductDetailClient({
               <div className="mb-8">
                 <span className="text-4xl font-bold">${product.price}</span>
                 <p className="text-sm text-muted-foreground mt-2">
-                  Free delivery on orders over $100
+                  {lang === 'zh' ? '订单满$100免费送货' : 'Free delivery on orders over $100'}
                 </p>
               </div>
 
@@ -81,7 +93,7 @@ export default function ProductDetailClient({
                 <div className="mb-8">
                   <h3 className="font-semibold mb-4 text-[15px] uppercase tracking-wide flex items-center">
                     <span className="inline-block w-2 h-2 bg-primary rounded-full mr-3"></span>
-                    Key Features
+                    {t('products.allProducts')}
                   </h3>
                   <ul className="space-y-3">
                     {product.details.map((detail, index) => (
@@ -98,10 +110,10 @@ export default function ProductDetailClient({
             {/* CTA Buttons */}
             <div className="flex gap-3 pt-6 border-t">
               <Button size="lg" className="flex-1">
-                Add to Cart
+                {t('products.addToCart')}
               </Button>
               <Button variant="outline" size="lg" className="flex-1">
-                Save for Later
+                {t('products.saveForLater')}
               </Button>
               <ShareDialog url={productUrl} title={product.name} />
             </div>
@@ -114,22 +126,22 @@ export default function ProductDetailClient({
             <div className="flex gap-4">
               <div className="text-2xl">🚚</div>
               <div>
-                <h4 className="font-semibold mb-1">Free Shipping</h4>
-                <p className="text-sm text-muted-foreground">On orders over $100</p>
+                <h4 className="font-semibold mb-1">{t('products.freeShipping')}</h4>
+                <p className="text-sm text-muted-foreground">{t('products.freeShippingDesc')}</p>
               </div>
             </div>
             <div className="flex gap-4">
               <div className="text-2xl">🛡️</div>
               <div>
-                <h4 className="font-semibold mb-1">1-Year Warranty</h4>
-                <p className="text-sm text-muted-foreground">Hassle-free coverage</p>
+                <h4 className="font-semibold mb-1">{t('products.warranty')}</h4>
+                <p className="text-sm text-muted-foreground">{t('products.warrantyDesc')}</p>
               </div>
             </div>
             <div className="flex gap-4">
               <div className="text-2xl">💬</div>
               <div>
-                <h4 className="font-semibold mb-1">24/7 Support</h4>
-                <p className="text-sm text-muted-foreground">Always here to help</p>
+                <h4 className="font-semibold mb-1">{t('products.support')}</h4>
+                <p className="text-sm text-muted-foreground">{t('products.supportDesc')}</p>
               </div>
             </div>
           </div>
@@ -138,12 +150,12 @@ export default function ProductDetailClient({
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div className="border-t pt-12">
-            <h2 className="text-2xl font-bold mb-8">Related Products</h2>
+            <h2 className="text-2xl font-bold mb-8">{t('products.relatedProducts')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {relatedProducts.map((relatedProduct) => (
                 <a
                   key={relatedProduct.id}
-                  href={`/products/${relatedProduct.slug}`}
+                  href={`/${lang}/products/${relatedProduct.slug}`}
                   className="group rounded-lg overflow-hidden border border-border hover:border-primary transition-colors"
                 >
                   <div className="aspect-square bg-muted overflow-hidden">

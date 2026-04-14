@@ -28,6 +28,13 @@ export default defineConfig({
   },
   adapter: vercel(),
   integrations: [react()],
+  i18n: {
+    defaultLocale: 'en',
+    locales: ['en', 'zh'],
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
   image: {
     remotePatterns: [
       {
@@ -40,6 +47,10 @@ export default defineConfig({
         hostname: 'localhost',
         port: '8055',
         pathname: '/assets/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
       },
     ],
   },
